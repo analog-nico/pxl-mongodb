@@ -142,4 +142,23 @@ describe('To initialize, PxlMongodb', () => {
 
     })
 
+    it('should reject connect(...) if db connection cannot be established', () => {
+
+        let pxl = new PxlMongodb({
+            collectionPxls: 'pxl-mongodb-text-pxls',
+            collectionLinks: 'pxl-mongodb-text-links'
+        })
+
+        return pxl.connect('mongodb:invalid')
+            .then(
+                () => {
+                    throw new Error('Expected an error')
+                },
+                () => {
+                    // Error expected
+                }
+            )
+
+    })
+
 })
