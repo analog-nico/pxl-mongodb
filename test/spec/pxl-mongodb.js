@@ -13,13 +13,25 @@ describe('PxlMongodb', () => {
             collectionLinks: 'pxl-mongodb-text-links'
         })
 
-        return pxl.connect()
-
     })
 
     after(() => {
 
         return pxl.disconnect()
+
+    })
+
+    it('should return the collection from connect(...)', () => {
+
+        return pxl.connect()
+            .then((collections) => {
+
+                return collections.pxls.stats()
+                    .then(() => {
+                        return collections.links.stats()
+                    })
+
+            })
 
     })
 
