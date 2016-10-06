@@ -88,7 +88,7 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 ## Change History
 
-- v0.0.2 (upcoming)
+- v0.0.2 (2016-10-06)
     - Upgraded to `pxl@0.0.2`
 - v0.0.1 (2016-10-06)
     - Initial version
