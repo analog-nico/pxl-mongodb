@@ -2,7 +2,7 @@
 
 Access counting for any Express-served url - e.g. for a [tracking pixel](https://en.wikipedia.org/wiki/Web_beacon) in emails
 
-[![Build Status](https://img.shields.io/travis/analog-nico/pxl-mongodb/master.svg?style=flat-square&maxAge=2592000)](https://travis-ci.org/analog-nico/pxl-mongodb)
+[![Build Status](https://img.shields.io/travis/analog-nico/pxl-mongodb.svg?style=flat-square&maxAge=2592000)](https://travis-ci.org/analog-nico/pxl-mongodb)
 [![Coverage Status](https://img.shields.io/coveralls/analog-nico/pxl-mongodb.svg?style=flat-square&maxAge=2592000)](https://coveralls.io/r/analog-nico/pxl-mongodb)
 [![Dependency Status](https://img.shields.io/david/analog-nico/pxl-mongodb.svg?style=flat-square&maxAge=2592000)](https://david-dm.org/analog-nico/pxl-mongodb)
 [![Known Vulnerabilities](https://snyk.io/test/npm/pxl-mongodb/badge.svg?style=flat-square&maxAge=2592000)](https://snyk.io/test/npm/pxl-mongodb)
