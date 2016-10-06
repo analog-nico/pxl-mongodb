@@ -7,6 +7,12 @@ Access counting for any Express-served url - e.g. for a [tracking pixel](https:/
 [![Dependency Status](https://img.shields.io/david/analog-nico/pxl-mongodb.svg?style=flat-square&maxAge=2592000)](https://david-dm.org/analog-nico/pxl-mongodb)
 [![Known Vulnerabilities](https://snyk.io/test/npm/pxl-mongodb/badge.svg?style=flat-square&maxAge=2592000)](https://snyk.io/test/npm/pxl-mongodb)
 
+## Overview
+
+`pxl-mongodb` is an extension of the [`pxl` library](https://github.com/analog-nico/pxl) that adds a persistence layer for mongoDB.
+
+Please check out the [README of the `pxl` library](https://github.com/analog-nico/pxl#readme) and then come back for instructions on [installing](#installation) and [using](#usage) this library.
+
 ## Installation
 
 [![NPM Stats](https://nodei.co/npm/pxl-mongodb.png?downloads=true)](https://npmjs.org/package/pxl-mongodb)
@@ -17,9 +23,54 @@ This is a module for node.js and is installed via npm:
 npm install pxl-mongodb --save
 ```
 
+`pxl` is installed automatically with `pxl-mongodb`.
+
 ## Usage
 
-Description forthcoming.
+Everything described in the [README of the `pxl` library](https://github.com/analog-nico/pxl#readme) is relevant for `pxl-mongodb` as well. The only difference is that this library includes a persistence layer for mongoDB and needs to be initialized differently.
+
+``` js
+let PxlMongodb = require('pxl-mongodb')
+
+let pxl = new PxlMongodb({
+
+    // Options described for the pxl lib like queryParam and logPxlFailed can be passed here as well
+    
+    // Additional options are:
+    collectionPxls: 'pxls' // Name of the collection to store pxl documents for access tracking
+    collectionLinks: 'links' // Name of the collection to store shortened links
+    
+    // Omit the options to use the default collection names equal to the example values above
+    
+})
+```
+
+Before you use any functions like `pxl.createdPxl(...)` you need to connect to the database:
+
+``` js
+pxl.connect('mongodb://localhost:27017/test', {}) // Passed values are the defaults
+    .then((collections) => {
+        
+        // Returns the collections to allow creating additional indexes etc.
+        
+        collections.pxls.stats().then(console.dir)
+        collections.lists.stats().then(console.dir)
+        
+    })
+```
+
+- First parameter `uri`: The mongoDB connection string that is used to connect to the database using the [`mongodb` library](https://www.npmjs.com/package/mongodb)
+- Second parameter `connectionOptions`: Additional options to configure the connection. For details see the [`mongodb` API docs](http://mongodb.github.io/node-mongodb-native/2.2/api/MongoClient.html#.connect).
+- Returns a promise with the collection objects as shown above. For details see the [`mongodb` API docs](http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html).
+
+And finally:
+
+``` js
+pxl.disconnect()
+    .then(() => {
+        console.log('Database connection is closed')
+    })
+```
 
 ## Contributing
 
