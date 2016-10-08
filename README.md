@@ -92,7 +92,8 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 - v0.0.3 (upcoming)
     - Per default, the same links will (almost always) get the same linkId when shortened
-    - Wiring to support referenced pxls 
+    - Wiring to support referenced pxls
+    - Upgraded to `pxl@0.0.3`
 - v0.0.2 (2016-10-06)
     - Upgraded to `pxl@0.0.2`
 - v0.0.1 (2016-10-06)
