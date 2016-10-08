@@ -2,10 +2,10 @@
 
 Access counting for any Express-served url - e.g. for a [tracking pixel](https://en.wikipedia.org/wiki/Web_beacon) in emails
 
-[![Build Status](https://img.shields.io/travis/analog-nico/pxl-mongodb.svg?style=flat-square&maxAge=2592000)](https://travis-ci.org/analog-nico/pxl-mongodb)
-[![Coverage Status](https://img.shields.io/coveralls/analog-nico/pxl-mongodb.svg?style=flat-square&maxAge=2592000)](https://coveralls.io/r/analog-nico/pxl-mongodb)
-[![Dependency Status](https://img.shields.io/david/analog-nico/pxl-mongodb.svg?style=flat-square&maxAge=2592000)](https://david-dm.org/analog-nico/pxl-mongodb)
-[![Known Vulnerabilities](https://snyk.io/test/npm/pxl-mongodb/badge.svg?style=flat-square&maxAge=2592000)](https://snyk.io/test/npm/pxl-mongodb)
+[![Build Status](https://img.shields.io/travis/analog-nico/pxl-mongodb.svg?style=flat-square)](https://travis-ci.org/analog-nico/pxl-mongodb)
+[![Coverage Status](https://img.shields.io/coveralls/analog-nico/pxl-mongodb.svg?style=flat-square)](https://coveralls.io/r/analog-nico/pxl-mongodb)
+[![Dependency Status](https://img.shields.io/david/analog-nico/pxl-mongodb.svg?style=flat-square)](https://david-dm.org/analog-nico/pxl-mongodb)
+[![Known Vulnerabilities](https://snyk.io/test/npm/pxl-mongodb/badge.svg?style=flat-square)](https://snyk.io/test/npm/pxl-mongodb)
 
 ## Overview
 
@@ -88,6 +88,8 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 ## Change History
 
+- v0.0.3 (upcoming)
+    - Wiring to support referenced pxls 
 - v0.0.2 (2016-10-06)
     - Upgraded to `pxl@0.0.2`
 - v0.0.1 (2016-10-06)

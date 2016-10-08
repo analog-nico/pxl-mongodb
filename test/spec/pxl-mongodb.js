@@ -51,15 +51,10 @@ describe('PxlMongodb', () => {
                 return pxl.logPxl(pxlKey)
 
             })
-            .then(() => {
+            .then((doc) => {
 
-                return pxl.persistenceLayer.db.collection('pxl-mongodb-text-pxls').findOne({ pxl: pxlKey })
-                    .then((doc) => {
-
-                        expect(doc.user).to.eql(user)
-                        expect(doc.count).to.eql(1)
-
-                    })
+                expect(doc.user).to.eql(user)
+                expect(doc.count).to.eql(1)
 
             })
             .then(() => {
@@ -67,15 +62,10 @@ describe('PxlMongodb', () => {
                 return pxl.logPxl(pxlKey)
 
             })
-            .then(() => {
+            .then((doc) => {
 
-                return pxl.persistenceLayer.db.collection('pxl-mongodb-text-pxls').findOne({ pxl: pxlKey })
-                    .then((doc) => {
-
-                        expect(doc.user).to.eql(user)
-                        expect(doc.count).to.eql(2)
-
-                    })
+                expect(doc.user).to.eql(user)
+                expect(doc.count).to.eql(2)
 
             })
 
