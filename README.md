@@ -37,10 +37,12 @@ let pxl = new PxlMongodb({
     // Options described for the pxl lib like queryParam and logPxlFailed can be passed here as well
     
     // Additional options are:
-    collectionPxls: 'pxls' // Name of the collection to store pxl documents for access tracking
-    collectionLinks: 'links' // Name of the collection to store shortened links
+    collectionPxls: 'pxls', // Name of the collection to store pxl documents for access tracking
+    collectionLinks: 'links', // Name of the collection to store shortened links
     
-    // Omit the options to use the default collection names equal to the example values above
+    alwaysShortenWithNewLinkId: false // Set to true if you need a different linkId each time you shorten a link - even if the link was shortened before
+    
+    // Omit the options to use the default values equal to the example values above
     
 })
 ```
@@ -89,6 +91,7 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 ## Change History
 
 - v0.0.3 (upcoming)
+    - Per default, the same links will (almost always) get the same linkId when shortened
     - Wiring to support referenced pxls 
 - v0.0.2 (2016-10-06)
     - Upgraded to `pxl@0.0.2`

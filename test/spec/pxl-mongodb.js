@@ -1,6 +1,7 @@
 'use strict'
 
 let PxlMongodb = require('../../')
+let uuid = require('uuid')
 
 describe('PxlMongodb', () => {
 
@@ -10,7 +11,8 @@ describe('PxlMongodb', () => {
 
         pxl = new PxlMongodb({
             collectionPxls: 'pxl-mongodb-text-pxls',
-            collectionLinks: 'pxl-mongodb-text-links'
+            collectionLinks: 'pxl-mongodb-text-links',
+            alwaysShortenWithNewLinkId: true
         })
 
     })
@@ -202,8 +204,9 @@ describe('PxlMongodb', () => {
 
         let i = 0
         let firstLinkId = null
+        let keyCollisionThrown = false
 
-        pxl.persistenceLayer.checkAndAddLink = function (linkId, link) {
+        pxl.persistenceLayer.checkAndAddLink = function (linkId, link, _skipExistingLinkCheck) {
 
             i+=1
 
@@ -216,10 +219,10 @@ describe('PxlMongodb', () => {
                     break
             }
 
-            return Reflect.apply(origCheckAndAddLink, pxl.persistenceLayer, [ linkId, link ])
+            return Reflect.apply(origCheckAndAddLink, pxl.persistenceLayer, [ linkId, link, _skipExistingLinkCheck ])
                 .catch((err) => {
-                    if (i === 2) {
-                        expect(err.name).to.eql('KeyCollisionError')
+                    if (i === 2 && err.name === 'KeyCollisionError') {
+                        keyCollisionThrown = true
                     }
                     throw err
                 })
@@ -229,9 +232,13 @@ describe('PxlMongodb', () => {
         return pxl.shorten('some link')
             .then(() => {
 
-                return pxl.shorten('some other link')
+                return pxl.shorten('some other link') // Collision must occur here
                     .then((shortenedLink) => {
-                        return pxl.unshorten(shortenedLink.linkId)
+
+                        expect(keyCollisionThrown).to.eql(true)
+
+                        return pxl.unshorten(shortenedLink.linkId) // Just to verify it doesn't crash
+
                     })
 
             })
@@ -272,6 +279,47 @@ describe('PxlMongodb', () => {
                 (err) => {
                     pxl.persistenceLayer.db = origDb
                     expect(err.message).to.eql('Some unexpected error')
+                }
+            )
+
+    })
+
+    it('reuses shortened links by default', () => {
+
+        pxl.persistenceLayer.alwaysShortenWithNewLinkId = false
+
+        let link1 = uuid.v4()
+        let link2 = uuid.v4()
+
+        let linkId1 = null
+        let linkId2 = null
+        let linkId3 = null
+
+        return pxl.shorten(link1)
+            .then((shortened1) => {
+                linkId1 = shortened1.linkId
+
+                return pxl.shorten(link2)
+            })
+            .then((shortened2) => {
+                linkId2 = shortened2.linkId
+
+                return pxl.shorten(link2)
+            })
+            .then((shortened3) => {
+                linkId3 = shortened3.linkId
+
+                expect(linkId1).to.not.eql(linkId2)
+                expect(linkId2).to.eql(linkId3)
+
+            })
+            .then(
+                () => {
+                    pxl.persistenceLayer.alwaysShortenWithNewLinkId = true
+                },
+                (err) => {
+                    pxl.persistenceLayer.alwaysShortenWithNewLinkId = true
+                    throw err
                 }
             )
 

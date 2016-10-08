@@ -53,6 +53,7 @@
     "gulp-mocha": "~3.0.1",
     "publish-please": "~2.2.0",
     "rimraf": "~2.5.4",
-    "run-sequence": "~1.2.2"
+    "run-sequence": "~1.2.2",
+    "uuid": "^2.0.3"
   }
 }
