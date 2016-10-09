@@ -178,9 +178,9 @@ describe('PxlMongodb', () => {
                 return pxl.unshorten(doc.linkId)
 
             })
-            .then((doc) => {
+            .then((loadedlink) => {
 
-                expect(doc.link).to.eql(link)
+                expect(loadedlink).to.eql(link)
 
             })
 
