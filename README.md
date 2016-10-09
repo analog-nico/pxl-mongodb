@@ -90,7 +90,7 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 ## Change History
 
-- v0.0.4 (upcoming)
+- v0.0.4 (2016-10-08)
     - Fixed unshorting links
     - Added index to speed up checking for already shortened links
 - v0.0.3 (2016-10-08)
