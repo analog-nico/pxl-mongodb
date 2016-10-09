@@ -90,7 +90,9 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 ## Change History
 
-- v0.0.3 (upcoming)
+- v0.0.4 (upcoming)
+    - Added index to speed up checking for already shortened links
+- v0.0.3 (2016-10-08)
     - Per default, the same links will (almost always) get the same linkId when shortened
     - Wiring to support referenced pxls
     - Upgraded to `pxl@0.0.3`
