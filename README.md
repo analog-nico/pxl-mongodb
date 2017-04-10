@@ -1,38 +1,39 @@
-# pxl-mongodb
+# pxl-storage
 
 Access counting for any Express-served url - e.g. for a [tracking pixel](https://en.wikipedia.org/wiki/Web_beacon) in emails
 
-[![Build Status](https://img.shields.io/travis/analog-nico/pxl-mongodb.svg?style=flat-square)](https://travis-ci.org/analog-nico/pxl-mongodb)
-[![Coverage Status](https://img.shields.io/coveralls/analog-nico/pxl-mongodb.svg?style=flat-square)](https://coveralls.io/r/analog-nico/pxl-mongodb)
-[![Dependency Status](https://img.shields.io/david/analog-nico/pxl-mongodb.svg?style=flat-square)](https://david-dm.org/analog-nico/pxl-mongodb)
-[![Known Vulnerabilities](https://snyk.io/test/npm/pxl-mongodb/badge.svg?style=flat-square)](https://snyk.io/test/npm/pxl-mongodb)
+[![Build Status](https://img.shields.io/travis/analog-nico/pxl-storage.svg?style=flat-square)](https://travis-ci.org/analog-nico/pxl-storage)
+[![Coverage Status](https://img.shields.io/coveralls/analog-nico/pxl-storage.svg?style=flat-square)](https://coveralls.io/r/analog-nico/pxl-storage)
+[![Dependency Status](https://img.shields.io/david/analog-nico/pxl-storage.svg?style=flat-square)](https://david-dm.org/analog-nico/pxl-storage)
+[![Known Vulnerabilities](https://snyk.io/test/npm/pxl-storage/badge.svg?style=flat-square)](https://snyk.io/test/npm/pxl-storage)
 
 ## Overview
 
-`pxl-mongodb` is an extension of the [`pxl` library](https://github.com/analog-nico/pxl) that adds a persistence layer for mongoDB.
+`pxl-storage` is an extension of the [`pxl` library](https://github.com/analog-nico/pxl) that adds a persistence layer for Persistent Storages like mongoDB, MySQL, MSSQL, Postgresql, SQLite, Elasticsearch.
 
 Please check out the [README of the `pxl` library](https://github.com/analog-nico/pxl#readme) and then come back for instructions on [installing](#installation) and [using](#usage) this library.
 
 ## Installation
 
-[![NPM Stats](https://nodei.co/npm/pxl-mongodb.png?downloads=true)](https://npmjs.org/package/pxl-mongodb)
+[![NPM Stats](https://nodei.co/npm/pxl-storage.png?downloads=true)](https://npmjs.org/package/pxl-storage)
 
 This is a module for node.js and is installed via npm:
 
 ``` bash
-npm install pxl-mongodb --save
+npm install pxl-storage --save
 ```
 
-`pxl` is installed automatically with `pxl-mongodb`.
+`pxl` is installed automatically with `pxl-storage`.
 
 ## Usage
 
-Everything described in the [README of the `pxl` library](https://github.com/analog-nico/pxl#readme) is relevant for `pxl-mongodb` as well. The only difference is that this library includes a persistence layer for mongoDB and needs to be initialized differently.
+Everything described in the [README of the `pxl` library](https://github.com/analog-nico/pxl#readme) is relevant for `pxl-storage` as well. The only difference is that this library includes a persistence layer and needs to be initialized differently.
 
 ``` js
-let PxlMongodb = require('pxl-mongodb')
+let PxlStorage = require('pxl-storage')
 
-let pxl = new PxlMongodb({
+let pxl = new PxlStorage({
+    type: 'mongodb|sql|es',
 
     // Options described for the pxl lib like queryParam and logPxlFailed can be passed here as well
     
@@ -50,7 +51,9 @@ let pxl = new PxlMongodb({
 Before you use any functions like `pxl.createdPxl(...)` you need to connect to the database:
 
 ``` js
-pxl.connect('mongodb://localhost:27017/test', {}) // Passed values are the defaults
+pxl.connect('http://localhost:9200', {}) // Passed values are the defaults
+pxl.connect('mysql://localhost:3306/test', {}) 
+pxl.connect('mongodb://localhost:27017/test', {})
     .then((collections) => {
         
         // Returns the collections to allow creating additional indexes etc.
@@ -61,8 +64,13 @@ pxl.connect('mongodb://localhost:27017/test', {}) // Passed values are the defau
     })
 ```
 
-- First parameter `uri`: The mongoDB connection string that is used to connect to the database using the [`mongodb` library](https://www.npmjs.com/package/mongodb)
-- Second parameter `connectionOptions`: Additional options to configure the connection. For details see the [`mongodb` API docs](http://mongodb.github.io/node-mongodb-native/2.2/api/MongoClient.html#.connect).
+
+First parameter `uri`: 
+- The sql connection string that is used to connect to the database using the [`sequelize` library](https://www.npmjs.com/package/sequelize)
+- The mongoDB connection string that is used to connect to the database using the [`mongodb` library](https://www.npmjs.com/package/mongodb)
+- The elasticsearch connection string that is used to connect to the database using the [`elasticsearch` library](https://www.npmjs.com/package/elasticsearch)
+Second parameter `connectionOptions`: 
+- Additional options to configure the connection. For details see the [`mongodb` API docs](http://mongodb.github.io/node-mongodb-native/2.2/api/MongoClient.html#.connect).
 - Returns a promise with the collection objects as shown above. For details see the [`mongodb` API docs](http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html).
 
 And finally:
@@ -76,7 +84,7 @@ pxl.disconnect()
 
 ## Contributing
 
-To set up your development environment for `pxl-mongodb`:
+To set up your development environment for `pxl-storage`:
 
 1. Clone this repo to your desktop,
 2. in the shell `cd` to the main folder,
