@@ -2,7 +2,7 @@
   "name": "pxl-storage",
   "version": "0.0.4",
   "description": "Access counting for any Express-served url - e.g. for a tracking pixel in emails",
-  "main": "./dist/index.js",
+  "main": "./lib/index.js",
   "scripts": {
     "test": "./node_modules/.bin/gulp ci",
     "test-publish": "./node_modules/.bin/gulp ci-no-cov",
