@@ -66,8 +66,8 @@ describe('PxlMongodb', () => {
             })
             .then((doc) => {
 
-                expect(doc.user).to.eql(user)
-                expect(doc.count).to.eql(2)
+                expect(doc).to.eql(undefined) // eslint-disable-line no-undefined
+                // The second call gets debounced. Therefore undefined.
 
             })
 
