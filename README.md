@@ -90,6 +90,9 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 ## Change History
 
+- v0.0.5 (2018-04-12)
+    - Using latest pxl version which debounces pxl logging when a user double clicks
+    - **Breaking Change**: If you call `.logPxl(...)` directly instead of using the `trackPxl` middleware then `.logPxl(...)` calls which get debounced resolve to `undefined`.
 - v0.0.4 (2016-10-08)
     - Fixed unshorting links
     - Added index to speed up checking for already shortened links
