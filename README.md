@@ -62,8 +62,8 @@ pxl.connect('mongodb://localhost:27017/test', {}) // Passed values are the defau
 ```
 
 - First parameter `uri`: The mongoDB connection string that is used to connect to the database using the [`mongodb` library](https://www.npmjs.com/package/mongodb)
-- Second parameter `connectionOptions`: Additional options to configure the connection. For details see the [`mongodb` API docs](http://mongodb.github.io/node-mongodb-native/2.2/api/MongoClient.html#.connect).
-- Returns a promise with the collection objects as shown above. For details see the [`mongodb` API docs](http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html).
+- Second parameter `connectionOptions`: Additional options to configure the connection. For details see the [`mongodb` API docs](http://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html#.connect).
+- Returns a promise with the collection objects as shown above. For details see the [`mongodb` API docs](http://mongodb.github.io/node-mongodb-native/3.6/api/Collection.html).
 
 And finally:
 
