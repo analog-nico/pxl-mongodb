@@ -90,6 +90,10 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 ## Change History
 
+- v0.0.6 (2020-06-06)
+    - Updated dependencies to fix security vulnerabilities
+    - Added node v8 and v10 to ci build
+    - Storing pixels with `writeConcern: { w: 'majority' }`
 - v0.0.5 (2018-04-12)
     - Using latest pxl version which debounces pxl logging when a user double clicks
     - **Breaking Change**: If you call `.logPxl(...)` directly instead of using the `trackPxl` middleware then `.logPxl(...)` calls which get debounced resolve to `undefined`.
