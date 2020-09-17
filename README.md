@@ -90,6 +90,9 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 ## Change History
 
+- v0.0.7 (2020-09-17)
+    - Storing links with `writeConcern: { w: 'majority' }`
+    - Updated dependencies
 - v0.0.6 (2020-06-06)
     - Updated dependencies to fix security vulnerabilities
     - Added node v8 and v10 to ci build
