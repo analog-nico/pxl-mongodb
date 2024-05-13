@@ -1,9 +1,11 @@
 language: node_js
 
 node_js:
-  - "6"
-  - "8"
-  - "10"
+  - "14"
+  - "16"
+  - "18"
+  - "20"
+  - "22"
 
 services:
   - "mongodb"

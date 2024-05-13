@@ -7,7 +7,7 @@ describe('PxlMongodb', () => {
 
     let pxl = null
 
-    before(() => {
+    beforeAll(() => {
 
         pxl = new PxlMongodb({
             collectionPxls: 'pxl-mongodb-text-pxls',
@@ -17,7 +17,7 @@ describe('PxlMongodb', () => {
 
     })
 
-    after(() => {
+    afterAll(() => {
 
         return pxl.disconnect()
 

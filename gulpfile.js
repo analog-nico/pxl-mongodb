@@ -1,100 +1,68 @@
 'use strict'
 
-let gulp = require('gulp')
-let runSequence = require('run-sequence')
-let istanbul = require('gulp-istanbul')
-let mocha = require('gulp-mocha')
-let chalk = require('chalk')
-let rimraf = require('rimraf')
-let coveralls = require('gulp-coveralls')
-let eslint = require('gulp-eslint')
-
-let chai = require('chai')
-global.expect = chai.expect
+const gulp = require('gulp')
+const jest = require('jest')
+const _ = require('lodash')
+const path = require('path')
 
 
-let paths = {
-    libJsFiles: './lib/**/*.js',
+const sources = {
+    libJsFiles: ['./index.js', './lib/**/*.js'],
     gulpfile: './gulpfile.js',
     specFiles: './test/spec/**/*.js',
+    specRootDir: './test/spec/', // Root dir instead of a glob
     fixtureFiles: './test/fixtures/**/*.js'
 }
 
 
-gulp.task('dev', ['watch', 'validate'])
+function generateTest(withCoverage = false) {
 
-gulp.task('watch', () => {
+    return async function testServer() {
 
-    gulp.watch([
-        paths.libJsFiles,
-        paths.specFiles,
-        paths.fixtureFiles
-    ], [
-        'validate'
-    ])
+        let rootDir = process.cwd()
 
-    gulp.watch([
-        paths.gulpfile
-    ], [
-        'lint'
-    ])
+        let options = {
+            rootDir,
+            roots: [
+                path.join(rootDir, sources.specRootDir)
+            ],
+            testMatch: ['<rootDir>/test/**/*.js']
+        }
+        if (withCoverage) {
+            options.coverage = true
+            options.coverageDirectory = path.join(rootDir, './coverage')
+        }
 
-})
+        let results = await jest.runCLI(
+            options,
+            [rootDir]
+        )
 
-gulp.task('validate', (done) => runSequence('lint', 'test', done))
+        if (!results.results.success) {
+            throw new Error('Tests failed')
+        }
 
-gulp.task('lint', () => {
+    }
 
-    return gulp.src([paths.libJsFiles, paths.gulpfile, paths.specFiles])
-        .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(eslint.failAfterError())
+}
 
-})
+let testWithoutCoverage = generateTest(false)
+let testWithCoverage = generateTest(true)
 
-gulp.task('test', ['clean'], (done) => {
 
-    let coverageVariable = `$$cov_${ new Date().getTime() }$$`
+function watch() {
 
-    gulp.src(paths.libJsFiles)
-        .pipe(istanbul({
-            coverageVariable
-        }))
-        .pipe(istanbul.hookRequire())
-        .on('finish', () => {
+    gulp.watch(_.flatten([
+        sources.libJsFiles,
+        sources.specFiles,
+        sources.fixtureFiles
+    ]), gulp.series(testWithCoverage))
 
-            gulp.src(paths.specFiles)
-                .pipe(mocha())
-                .on('error', (err) => {
-                    console.error(String(err))
-                    console.error(chalk.bold.bgRed(' TESTS FAILED '))
-                    done(new Error(' TESTS FAILED '))
-                })
-                .pipe(istanbul.writeReports({
-                    reporters: ['lcov'],
-                    coverageVariable
-                }))
-                .on('end', () => done())
+}
 
-        })
 
-})
-
-gulp.task('test-without-coverage', () => {
-
-    return gulp.src(paths.specFiles)
-        .pipe(mocha())
-        .on('error', () => console.log(chalk.bold.bgRed(' TESTS FAILED ')))
-
-})
-
-gulp.task('clean', ['clean-coverage'])
-gulp.task('clean-coverage', (done) => rimraf('./coverage', done))
-
-gulp.task('ci', (done) => runSequence('validate', 'coveralls', 'test-without-coverage', done))
-gulp.task('ci-no-cov', (done) => runSequence('validate', 'test-without-coverage', done))
-
-gulp.task('coveralls', () => {
-    return gulp.src('coverage/**/lcov.info')
-        .pipe(coveralls())
-})
+module.exports = {
+    dev: gulp.series(testWithCoverage, watch),
+    testDebug: gulp.series(testWithoutCoverage),
+    ci: gulp.series(testWithoutCoverage)
+}
