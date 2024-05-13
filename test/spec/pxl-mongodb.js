@@ -28,9 +28,9 @@ describe('PxlMongodb', () => {
         return pxl.connect()
             .then((collections) => {
 
-                return collections.pxls.stats()
+                return collections.pxls.count()
                     .then(() => {
-                        return collections.links.stats()
+                        return collections.links.count()
                     })
 
             })
