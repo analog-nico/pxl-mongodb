@@ -2,11 +2,6 @@
 
 Access counting for any Express-served url - e.g. for a [tracking pixel](https://en.wikipedia.org/wiki/Web_beacon) in emails
 
-[![Build Status](https://img.shields.io/travis/analog-nico/pxl-mongodb.svg?style=flat-square)](https://travis-ci.org/analog-nico/pxl-mongodb)
-[![Coverage Status](https://img.shields.io/coveralls/analog-nico/pxl-mongodb.svg?style=flat-square)](https://coveralls.io/r/analog-nico/pxl-mongodb)
-[![Dependency Status](https://img.shields.io/david/analog-nico/pxl-mongodb.svg?style=flat-square)](https://david-dm.org/analog-nico/pxl-mongodb)
-[![Known Vulnerabilities](https://snyk.io/test/npm/pxl-mongodb/badge.svg?style=flat-square)](https://snyk.io/test/npm/pxl-mongodb)
-
 ## Overview
 
 `pxl-mongodb` is an extension of the [`pxl` library](https://github.com/analog-nico/pxl) that adds a persistence layer for mongoDB.
