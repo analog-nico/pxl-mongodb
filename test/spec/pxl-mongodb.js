@@ -45,8 +45,8 @@ describe('PxlMongodb', () => {
         return pxl.createPxl({ user })
             .then((doc) => {
 
-                expect(doc.user).to.eql(user)
-                expect(doc.count).to.eql(0)
+                expect(doc.user).toEqual(user)
+                expect(doc.count).toEqual(0)
 
                 pxlKey = doc.pxl
 
@@ -55,8 +55,8 @@ describe('PxlMongodb', () => {
             })
             .then((doc) => {
 
-                expect(doc.user).to.eql(user)
-                expect(doc.count).to.eql(1)
+                expect(doc.user).toEqual(user)
+                expect(doc.count).toEqual(1)
 
             })
             .then(() => {
@@ -66,7 +66,7 @@ describe('PxlMongodb', () => {
             })
             .then((doc) => {
 
-                expect(doc).to.eql(undefined) // eslint-disable-line no-undefined
+                expect(doc).toEqual(undefined) // eslint-disable-line no-undefined
                 // The second call gets debounced. Therefore undefined.
 
             })
@@ -80,7 +80,7 @@ describe('PxlMongodb', () => {
                 throw new Error('Expected error')
             })
             .catch((err) => {
-                expect(err.message).to.eql('Pxl not found.')
+                expect(err.message).toEqual('Pxl not found.')
             })
 
     })
@@ -108,7 +108,7 @@ describe('PxlMongodb', () => {
             return Reflect.apply(origCheckAndAddPxl, pxl.persistenceLayer, [ pxlKey, metadata ])
                 .catch((err) => {
                     if (i === 2) {
-                        expect(err.name).to.eql('KeyCollisionError')
+                        expect(err.name).toEqual('KeyCollisionError')
                     }
                     throw err
                 })
@@ -160,7 +160,7 @@ describe('PxlMongodb', () => {
                 },
                 (err) => {
                     pxl.persistenceLayer.db = origDb
-                    expect(err.message).to.eql('Some unexpected error')
+                    expect(err.message).toEqual('Some unexpected error')
                 }
             )
 
@@ -173,14 +173,14 @@ describe('PxlMongodb', () => {
         return pxl.shorten(link)
             .then((doc) => {
 
-                expect(doc.link).to.eql(link)
+                expect(doc.link).toEqual(link)
 
                 return pxl.unshorten(doc.linkId)
 
             })
             .then((loadedlink) => {
 
-                expect(loadedlink).to.eql(link)
+                expect(loadedlink).toEqual(link)
 
             })
 
@@ -193,7 +193,7 @@ describe('PxlMongodb', () => {
                 throw new Error('Expected error')
             })
             .catch((err) => {
-                expect(err.message).to.eql('Link not found.')
+                expect(err.message).toEqual('Link not found.')
             })
 
     })
@@ -235,7 +235,7 @@ describe('PxlMongodb', () => {
                 return pxl.shorten('some other link') // Collision must occur here
                     .then((shortenedLink) => {
 
-                        expect(keyCollisionThrown).to.eql(true)
+                        expect(keyCollisionThrown).toEqual(true)
 
                         return pxl.unshorten(shortenedLink.linkId) // Just to verify it doesn't crash
 
@@ -278,7 +278,7 @@ describe('PxlMongodb', () => {
                 },
                 (err) => {
                     pxl.persistenceLayer.db = origDb
-                    expect(err.message).to.eql('Some unexpected error')
+                    expect(err.message).toEqual('Some unexpected error')
                 }
             )
 
@@ -309,8 +309,8 @@ describe('PxlMongodb', () => {
             .then((shortened3) => {
                 linkId3 = shortened3.linkId
 
-                expect(linkId1).to.not.eql(linkId2)
-                expect(linkId2).to.eql(linkId3)
+                expect(linkId1).not.toEqual(linkId2)
+                expect(linkId2).toEqual(linkId3)
 
             })
             .then(

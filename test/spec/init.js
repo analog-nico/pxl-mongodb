@@ -21,7 +21,7 @@ describe('To initialize, PxlMongodb', () => {
                         },
                         (err) => {
                             // Error expected
-                            expect(err.message).to.eql('Database connection is already established. Please do not call PxlMongodb.connect(...) twice.')
+                            expect(err.message).toEqual('Database connection is already established. Please do not call PxlMongodb.connect(...) twice.')
                         }
                     )
 
@@ -56,7 +56,7 @@ describe('To initialize, PxlMongodb', () => {
                 },
                 (err) => {
                     // Error expected
-                    expect(err.message).to.eql('Database connection is not established. Please call PxlMongodb.connect(...) first.')
+                    expect(err.message).toEqual('Database connection is not established. Please call PxlMongodb.connect(...) first.')
                 }
             )
 
@@ -76,7 +76,7 @@ describe('To initialize, PxlMongodb', () => {
                 },
                 (err) => {
                     // Error expected
-                    expect(err.message).to.eql('Database connection is not established. Please call PxlMongodb.connect(...) first.')
+                    expect(err.message).toEqual('Database connection is not established. Please call PxlMongodb.connect(...) first.')
                 }
             )
 
@@ -96,7 +96,7 @@ describe('To initialize, PxlMongodb', () => {
                 },
                 (err) => {
                     // Error expected
-                    expect(err.message).to.eql('Database connection is not established. Please call PxlMongodb.connect(...) first.')
+                    expect(err.message).toEqual('Database connection is not established. Please call PxlMongodb.connect(...) first.')
                 }
             )
 
@@ -116,7 +116,7 @@ describe('To initialize, PxlMongodb', () => {
                 },
                 (err) => {
                     // Error expected
-                    expect(err.message).to.eql('Database connection is not established. Please call PxlMongodb.connect(...) first.')
+                    expect(err.message).toEqual('Database connection is not established. Please call PxlMongodb.connect(...) first.')
                 }
             )
 
@@ -136,7 +136,7 @@ describe('To initialize, PxlMongodb', () => {
                 },
                 (err) => {
                     // Error expected
-                    expect(err.message).to.eql('Database connection is not established. Please call PxlMongodb.connect(...) first.')
+                    expect(err.message).toEqual('Database connection is not established. Please call PxlMongodb.connect(...) first.')
                 }
             )
 
