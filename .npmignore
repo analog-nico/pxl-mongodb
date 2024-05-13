@@ -3,10 +3,8 @@
 /test/
 
 /.editorconfig
-/.eslintrc.json
 /.gitignore
 /.publishrc
-/.travis.yml
 /gulpfile.js
 /package-lock.json
 
