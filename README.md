@@ -84,6 +84,9 @@ If you want to debug a test you should use `npm run test-debug` to run all tests
 
 ## Change History
 
+- v1.0.0 (2024-05-13)
+    - **Breaking Change**: Upgraded to `mongodb` versions `5.x` or `6.x`
+    - **Breaking Change**: Supporting node.js version `>=14.20.1`
 - v0.0.7 (2020-09-17)
     - Storing links with `writeConcern: { w: 'majority' }`
     - Updated dependencies
